@@ -42,7 +42,7 @@ never adds typos or random variation.
 
 ```bash
 git clone https://github.com/Gunter-The-Third/deslopify.git
-cp -r deslopify/skills/deslop ~/.claude/skills/
+cp -r deslopify/skills/deslop deslopify/skills/deslopchinese ~/.claude/skills/
 ```
 
 **Other agents.** Point the agent at `skills/deslop/SKILL.md`, or copy its
@@ -51,6 +51,25 @@ contents into your agent's instruction file. The scripts need only Python 3.8+.
 Then ask: "deslop the README", "review docs/ for AI tells", "tighten this PR
 description".
 
+## Commands
+
+| Personal skill command | Behaviour |
+|---|---|
+| `/deslop README.md` | Edit with small sentence changes. |
+| `/deslop README.md review` | Report findings. |
+| `/deslop README.md max` | Also restructure padded paragraphs and repeated caveats. |
+| `/deslopchinese README.md` | Alias for the maximum pass, retaining the original language. |
+
+Plugin installs use `/deslop:deslop` and `/deslop:deslopchinese`, as
+[Claude Code documents](https://code.claude.com/docs/en/skills#choose-where-skills-load).
+The maximum pass keeps every fact and qualification. It leaves clear prose
+alone. The scanner measures English. Other languages need a reading pass.
+
+The main skill is short and loads only the rules needed for the task. It
+scans targets together, uses compact reports and gives a brief final reply.
+These reduce instruction and output text. Actual token use depends on the
+model and input.
+
 ## Using the scripts directly
 
 ```bash
@@ -58,6 +77,9 @@ S=skills/deslop/scripts
 
 # Rates per 1,000 words, with every hit listed
 python3 $S/slopscan.py README.md docs/ --list
+
+# Compact model context: nonzero features and grouped locations
+python3 $S/slopscan.py README.md docs/ --compact
 
 # Only some features
 python3 $S/slopscan.py paper.tex --list --feature em_dash --feature colon_reveal
@@ -128,7 +150,9 @@ python3 evals/run_evals.py
 Each case in `evals/cases/` pairs a sloppy original with a reference rewrite.
 The runner checks that the scanner scores the rewrite lower and that the
 rewrite keeps the protected tokens. Regression tests check repeated tokens,
-code whitespace, citation locators, quotations and scientific notation.
+code whitespace, citation locators, quotations, scientific notation and compact
+reports. [Example results](evals/EXAMPLES.md) show the measured edits and
+instruction sizes.
 To test an agent, have it write `candidate.md` (or
 `.tex`) beside each `before` file. The runner then checks that the candidate
 scores lower, is no more than 5% longer and keeps the protected tokens. Files in
@@ -138,7 +162,7 @@ scores lower, is no more than 5% longer and keeps the protected tokens. Files in
 
 - The counts are leads for a reader to check. The scanner misses some
   patterns and flags some legitimate uses. The evals cover three reference
-  rewrites and one clean sample. They do not establish a detection rate.
+  rewrites and a few clean samples. They do not establish a detection rate.
 - `factdiff.py` checks extracted tokens and their counts. It cannot catch a
   changed unit or a reversed claim when the protected tokens stay the same.
   Code is compared exactly, including whitespace and fence language.

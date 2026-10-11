@@ -9,7 +9,7 @@ tidyjson formats JSON. It streams its input instead of loading it into memory, s
 
 ## Limitations
 
-jq is faster on very small files.
+tidyjson may be slower than jq on very small files.
 
 ## Install
 

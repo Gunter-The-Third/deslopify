@@ -564,7 +564,8 @@ def excess(scan: Scan, baseline: dict | None = None) -> float:
 
 # --------------------------------------------------------------------- CLI
 
-def report(scan: Scan, baseline: dict | None, show_list: bool, only: set | None) -> str:
+def report(scan: Scan, baseline: dict | None, show_list: bool, only: set | None,
+           compact: bool = False) -> str:
     rows, total = assess(scan, baseline)
     out = []
     src = (f"baseline: {', '.join(baseline['sources'])} ({baseline['words']:,} words)"
@@ -573,6 +574,18 @@ def report(scan: Scan, baseline: dict | None, show_list: bool, only: set | None)
                f"{len(scan.lengths):,} sentences ({src})")
     if scan.words < 300:
         out.append("note: under 300 words, so rates are noisy. Read the hits, not the rates.")
+    if compact:
+        out.append(f"excess over ceilings: {total:.2f} per 1k words")
+        for r in rows:
+            if r["hits"] and (not only or r["feature"] in only):
+                out.append(f"{r['feature']}: {r['hits']} hits, {r['rate']:.2f}/1k, {r['status']}")
+        locations = {}
+        for hit in scan.hits:
+            if not only or hit.feature in only:
+                locations.setdefault((hit.path, hit.line), set()).add(hit.feature)
+        for (path, line), features in sorted(locations.items()):
+            out.append(f"{path}:{line}  [{', '.join(sorted(features))}]")
+        return "\n".join(out)
     out.append("")
     ref_label = "base" if baseline else "ceil"
     out.append(f"{'feature':<19} {'hits':>5} {'per 1k':>7} {ref_label:>6}  status")
@@ -601,8 +614,10 @@ def main(argv=None):
     ap.add_argument("--save-baseline", metavar="OUT.json",
                     help="scan PATHS as the author's own writing and save their rates as a baseline")
     ap.add_argument("--list", action="store_true", help="print every hit with file:line")
+    ap.add_argument("--compact", action="store_true",
+                    help="show nonzero features and grouped file:line hits without snippets")
     ap.add_argument("--feature", action="append", choices=sorted(FEATURES),
-                    help="with --list, show only this feature (repeatable)")
+                    help="with --list or --compact, show only this feature (repeatable)")
     ap.add_argument("--json", action="store_true", help="machine-readable output")
     ap.add_argument("--fail-above", type=float, metavar="X",
                     help="exit 1 when the excess over ceilings exceeds X per 1k words")
@@ -627,7 +642,7 @@ def main(argv=None):
                           "features": rows,
                           "hits": [h.__dict__ for h in scan.hits]}, indent=2))
     else:
-        print(report(scan, baseline, args.list, set(args.feature or [])))
+        print(report(scan, baseline, args.list, set(args.feature or []), compact=args.compact))
     if args.fail_above is not None and total > args.fail_above:
         return 1
     return 0

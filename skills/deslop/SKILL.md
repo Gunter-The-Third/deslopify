@@ -1,95 +1,49 @@
 ---
 name: deslop
-description: Find and fix AI-sounding prose in Markdown, LaTeX and plain-text files (em dashes, colon reveals, "not X but Y", signposting, stock vocabulary, stacked hedges, caveats scattered through results, padded summaries) with minimal edits that keep the author's voice and every fact. Use when asked to deslop, de-AI, humanise, tighten or clean up writing, or to review a README, docs, PR description, paper or thesis for AI tells.
+description: Remove AI-sounding prose with minimal edits that preserve voice and meaning. Use for deslop, de-AI, humanise or tighten requests; review requests report findings without editing.
 ---
 
 # Deslop
 
-The goal is prose a reader can follow quickly, in the author's own voice. Fix a
-pattern only when the fix makes the writing better for the reader. This skill
-does not try to beat AI detectors, and it never adds typos, slang or random
-variation to make text look human.
+Work on the named files or supplied text. `/deslop FILE` requests edits.
+`/deslop FILE review` requests findings. `/deslop FILE max` requests a
+thorough pass. With no target, ask for one.
 
-Two scripts sit in `scripts/` beside this file. Both use only the Python
-standard library (3.8+).
+## Preserve
 
-- `slopscan.py` counts each tell per 1,000 words, compares the rate with a
-  ceiling and lists every hit as `file:line`.
-- `factdiff.py` compares extracted numbers, citations, cross-references,
-  URLs, quotations, code and maths, including occurrence counts. It compares
-  code exactly. It cannot check prose meaning, units, names or claim strength.
+Keep the language, spelling variety, voice, terminology and claim strength.
+Preserve every number, unit, citation, cross-reference, URL, name, defined
+term, quotation, equation and code span or block. Leave front matter, tables,
+licences, generated files and other authors' quotations alone unless asked.
+Keep real uncertainty when removing stacked hedges. Never invent facts,
+confidence, typos or random variation. A lower score alone is not success.
 
-## Workflow
+## Work
 
-1. **Scope.** Use the files the user named. If they named a directory or a
-   repo, take its prose: `*.md`, `*.tex`, `*.rst`, `*.txt`, docs folders, the
-   README. Leave out generated files, vendored code, changelogs written by
-   tools, licences and legal text, and anything quoted from someone else.
-2. **Baseline.** Ask whether the author has writing from before they used AI
-   tools (ideally 5,000+ words in the same genre). If they do, build a
-   baseline with `slopscan.py --save-baseline baseline.json <their files>` and
-   pass `--baseline baseline.json` from then on. Without one, the scanner uses
-   rough built-in ceilings. Say which one the report used.
-3. **Scan.** `python3 scripts/slopscan.py <paths> [--baseline B] --list`
-4. **Triage.** Read each hit in context and decide whether it is a real
-   problem. The rules files explain each pattern and its legitimate uses.
-   Then read the text yourself for what a regex cannot see: summaries that
-   repeat the paragraph above, caveats scattered through a result, runway
-   sentences, one concept under several names, a heading for every
-   paragraph. The scanner is a heuristic. The evals do not establish its
-   detection rate.
-5. **Report or edit.** Report by default. Edit only when the user asks you to
-   fix, edit, rewrite or deslop the files.
-6. **Verify every edit.**
-   - Re-run `slopscan.py` and confirm the flagged rates fell.
-   - Run `factdiff.py BEFORE AFTER`, or `factdiff.py --git HEAD FILE` in a
-     git repo. Any difference it reports must be restored, or explained to
-     the user if the change is correct.
-   - Read the prose diff for changed meaning, units, names, defined terms and
-     claim strength, even when `factdiff.py` passes. A lower scan score alone
-     does not establish a better rewrite.
-   - Confirm the text got shorter or stayed the same length.
+1. Resolve `scripts/` relative to this skill file, independent of the working
+   directory. Scan English prose in one batch with `slopscan.py --compact`.
+   Use a supplied or established baseline with `--baseline`. Otherwise state
+   that built-in ceilings were used. Leave features marked below baseline.
+   The scanner measures English only. Review other languages by reading.
+2. Read each target once in context. Consult only the needed rules:
+   [structural](rules/structural.md) for sentence frames,
+   [rhetoric](rules/rhetoric.md) for vocabulary or hedges,
+   [concision](rules/concision.md) for repetition or structure,
+   [formats](rules/formats.md) for genre-specific decisions.
+   Keep legitimate contrasts, list introductions and technical terms.
+3. Remove empty signposting, hype, runway sentences and mirror summaries.
+   Fix repeated sentence frames. Default to small sentence edits. In `max`
+   mode, also merge padded paragraphs and repeated caveats while retaining
+   every qualification. Leave clear prose alone. Do not chase a zero score.
+4. For edits, keep a temporary original of each target. Re-scan once, run
+   `factdiff.py ORIGINAL EDITED`, and read the diff for meaning, units, names
+   and claim strength. Restore accidental changes. Explain intended token
+   changes. Check length. Extra words need a reason.
 
-## Rules
+## Reply
 
-Read these when triaging. They are short.
-
-- [rules/structural.md](rules/structural.md): sentence architecture. This is
-  where most of the signal is.
-- [rules/rhetoric.md](rules/rhetoric.md): vocabulary, inflation, hedging and
-  narrated candour.
-- [rules/concision.md](rules/concision.md): caveat placement, signposting,
-  repetition and document structure.
-- [rules/formats.md](rules/formats.md): READMEs, PR descriptions, commit
-  messages, papers and code comments.
-
-## Hard rules
-
-- Never change a number, unit, citation, cross-reference, URL, code, maths,
-  quotation, name or defined term. Check units, names and defined terms by
-  reading the diff. `factdiff.py` checks the extracted tokens.
-- Do not change how strongly a claim is made. When removing a stacked hedge,
-  keep the hedge that carries the real uncertainty. Do not add confidence the
-  evidence does not support.
-- Make the smallest edit that fixes the problem. Rewrite at the sentence
-  level and leave sound sentences alone.
-- Keep the author's voice: their spelling (Australian, British, American),
-  terminology, person (first person or not) and habitual connectives.
-- When a baseline says a feature is "below baseline: leave alone", do not edit
-  it. Cutting it further moves the text away from the author.
-- Do not touch code blocks, inline code, front matter, tables, quotations,
-  licence text or generated files unless the user asks.
-- One finding the user can act on beats five they have to argue with. When a
-  hit is a judgement call, put it under "Left alone" with the reason.
-
-## Report format
-
-1. **Summary.** Words scanned, baseline used, the features marked HIGH, and the
-   two or three changes that would help the reader most.
-2. **Findings**, worst first. Each has `file:line`, a verbatim quote of at most
-   two lines, the pattern, and a minimal rewrite (or "cut" when the sentence
-   carries no information).
-3. **Left alone.** Hits you judged legitimate, and why.
-
-After editing, report instead: files changed, the excess before and after,
-words before and after, and the `factdiff` result for each file.
+For supplied text, return only the edited text unless asked to explain.
+For files, report words and excess before/after, baseline used and verification
+in a short paragraph. For review, give up to three actionable findings with
+`file:line` and a minimal rewrite. Mention legitimate hits only when useful.
+Load neither all rules nor full scan tables by default.

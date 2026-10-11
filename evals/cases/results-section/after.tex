@@ -1,0 +1,7 @@
+\section{Results}
+
+The proposed method reaches 94.2\% accuracy on the held-out test set, against 91.7\% for the baseline \cite{smith2020}. The improvement holds for all five random seeds (Table~\ref{tab:seeds}).
+
+The gain comes from the starting point. After one epoch the training loss is 0.83 for the proposed method and 1.41 for the baseline, a reduction of 41\% (Figure~\ref{fig:loss}). This suggests that the learned initialisation places the weights closer to a good minimum.
+
+The method was evaluated on one benchmark, CIFAR-10, with the training budget fixed at 200 epochs. A fixed budget may favour methods that converge quickly, and the results may not generalise to other datasets.

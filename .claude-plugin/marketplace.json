@@ -1,0 +1,11 @@
+{
+  "name": "deslop",
+  "owner": { "name": "Jamie Keegan-Treloar" },
+  "plugins": [
+    {
+      "name": "deslop",
+      "source": "./",
+      "description": "Find and fix AI-sounding prose with minimal edits that keep the author's voice and every fact."
+    }
+  ]
+}

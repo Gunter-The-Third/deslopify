@@ -1,0 +1,8 @@
+{
+  "name": "deslop",
+  "version": "0.1.0",
+  "description": "Find and fix AI-sounding prose with minimal edits that keep the author's voice and every fact.",
+  "author": { "name": "Jamie Keegan-Treloar" },
+  "license": "MIT",
+  "keywords": ["writing", "editing", "prose", "documentation", "ai-slop"]
+}

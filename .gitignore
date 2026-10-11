@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.DS_Store
+# Keep authors' raw writing samples out of git; commit only the derived .json rates.
+baselines/samples/
+evals/cases/*/candidate.*

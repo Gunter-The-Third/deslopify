@@ -1,0 +1,72 @@
+{
+  "result": "# Harbour: a streaming CSV importer for order records\n\nThe problem will be familiar if you maintain data ingestion jobs. A CSV file arrives, something in it is wrong, and the import either dies halfway through or succeeds in a way that leaves you unsure which records made it. Harbour is a command-line tool for importing order records from CSV files into an existing ledger. It was built to make those two failure modes less painful.\n\nThe main change from the old importer is how the file is read. The old importer loaded the whole file into memory before doing any work, which meant memory use scaled with file size and a 2 GB file was a gamble. Harbour reads the file in chunks of 8,000 rows using a streaming parser, and distributes work across 4 workers. Memory use stays flat regardless of how large the file is.\n\n## Validate before you write\n\nHarbour validates each record before writing it. Records that fail validation are written to an error file along with their line number and the column name that failed. Records that pass are still imported — one bad row does not abort the run or block the other 199,999 rows in the file.\n\nThat matters because the common case is not a corrupt file but a slightly wrong one: a few rows with a malformed date, a missing identifier, a stray value in a numeric column. Under the old model you would find out by watching the job fail, fix one row, and run it again. Harbour lets you import what is valid and work through the error report separately.\n\nIf you want the validation without the writes, there is a dry run:\n\n```\nharbour import orders.csv --dry-run\n```\n\nThis validates the whole file and writes the error report, but does not write anything to the ledger. It is the command to reach for when a new file format shows up, or when an upstream system changes and you want to know what broke before it reaches production.\n\n## Retries and checkpoints\n\nA normal import reuses the `order_id` from the source record rather than generating a new identifier. The ledger ignores duplicate identifiers, so re-running an import that was interrupted will not produce duplicate entries.\n\nIt is worth being precise about what this does and does not give you. It protects you against duplicates on retry. It does not repair an incorrect source record — if a record was written with a wrong value and you fix the CSV and re-import, the ledger will see the same `order_id` and ignore the new version. Correcting already-imported data is a separate problem that Harbour does not solve.\n\nHarbour also records a checkpoint after each completed chunk. If the process is interrupted, the next run resumes from the last completed checkpoint instead of starting over. Combined with duplicate handling, this means an interrupted large import is a resume rather than a reconciliation exercise.\n\n## Benchmarks\n\nIn a local test across 35 files of up to 2 GB:\n\n| | Harbour | Old importer |\n|---|---|---|\n| Median import time | 4.8 s | 6.2 s |\n| Peak memory | 72 MB | 1.1 GB |\n\nThe memory figure is the interesting one. The time improvement is real but modest; the drop from 1.1 GB to 72 MB is what changes the operational picture, because it decouples memory use from file size.\n\nRead these numbers with their caveats. They come from a single Linux machine with a local SSD. Network storage or different row lengths may behave differently, and the test did not measure what happens when multiple import jobs run at the same time. If you run concurrent imports, you should measure that yourself.\n\n## Limitations\n\nSmall files may be slower than under the old importer. Starting 4 workers and opening the checkpoint store both add fixed overhead, and on a small file that overhead is not amortised by anything. We do not have small-file timings to quantify this, so if your workload is mostly small files, benchmark before switching.\n\nThe supported encoding is UTF-8. Embedded newlines in quoted fields are handled correctly, which covers the usual source of mangled CSV. Files in other encodings must be converted before import — Harbour will not do the conversion for you.\n\nHarbour is a command-line tool and nothing more. There is no web interface, no schema editor, and no remote scheduling service. It is intended to be driven by whatever you already use to run jobs.\n\n## Rollout advice\n\nStart with a dry run against a copy of representative data:\n\n```\nharbour import orders.csv --dry-run\n```\n\nThen work through the error report. Rows that fail here are rows the old importer was handling somehow, and you want to understand how before you change behaviour in production. Compare the set of accepted records against what the old importer produces on the same input — if the counts differ, find out why.\n\nVerify duplicate handling explicitly before enabling production writes. Run an import, interrupt it, resume it, and confirm the ledger contains what you expect. The guarantee is straightforward, but it is cheap to check and expensive to assume.\n\nOnce dry runs are clean and duplicate handling is confirmed on your data, enable production writes.",
+  "subtype": "success",
+  "is_error": false,
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 2917,
+      "outputTokens": 14,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.002987,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-opus-5": {
+      "inputTokens": 2,
+      "outputTokens": 2772,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 3249,
+      "webSearchRequests": 0,
+      "costUSD": 0.1018,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "thinkingTokens": 1223,
+      "canonicalModel": "claude-opus-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 3249,
+    "cache_read_input_tokens": 0,
+    "output_tokens": 2772,
+    "output_tokens_details": {
+      "thinking_tokens": 1223
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 3249,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2772,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 3249,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 3249
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "total_cost_usd": 0.104787,
+  "duration_ms": 28492,
+  "duration_api_ms": 30499,
+  "num_turns": 1
+}

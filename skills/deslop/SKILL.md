@@ -6,6 +6,7 @@ description: Remove AI-sounding prose with minimal edits that preserve voice and
 # Deslop
 
 Work on the named files or supplied text. `/deslop FILE` requests edits.
+`/deslop FILE light` keeps paragraph order and fixes obvious wording.
 `/deslop FILE review` requests findings. `/deslop FILE max` requests a
 thorough pass. With no target, ask for one.
 
@@ -32,7 +33,8 @@ confidence, typos or random variation. A lower score alone is not success.
    [formats](rules/formats.md) for genre-specific decisions.
    Keep legitimate contrasts, list introductions and technical terms.
 3. Remove empty signposting, hype, runway sentences and mirror summaries.
-   Fix repeated sentence frames. Default to small sentence edits. In `max`
+   In `light` mode, keep the structure and fix obvious wording only.
+   Default to small sentence edits and fixes to repeated frames. In `max`
    mode, also merge padded paragraphs and repeated caveats while retaining
    every qualification. Leave clear prose alone. Do not chase a zero score.
 4. For edits, keep a temporary original of each target. Re-scan once, run

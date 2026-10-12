@@ -1,5 +1,10 @@
 # Example runs
 
+The [long-form Opus comparison](examples/opus-longform/README.md) contains a
+genuine, untouched Claude Opus article and independent light, standard and
+maximum passes. It includes the prompts, model metadata, token counts and
+full outputs. The smaller examples below were edited by the Codex assistant.
+
 On 12 October 2026, the current Codex assistant rewrote the three English
 fixtures using the compact skill instructions. `candidate.*` files were
 checked with `python3 evals/run_evals.py`. These were edits by the assistant

@@ -14,6 +14,11 @@ The demo keeps both numbers and the uncertainty. The agent removes the padded
 framing. [Read the original](evals/cases/quick-demo/before.md) and
 [the rewrite](evals/cases/quick-demo/after.md), or run the checks below.
 
+For a longer comparison, read [real Claude Opus output at three editing
+levels](evals/examples/opus-longform/README.md). It includes the untouched
+article, light, standard and maximum edits, the prompts and the model's
+response metadata. Each pass starts from the same source.
+
 ## Install
 
 In Claude Code:
@@ -52,6 +57,7 @@ workflow and scripts. Other coding agents can read
 | Plugin command | Personal skill command | What it does |
 |---|---|---|
 | `/deslop:deslop FILE` | `/deslop FILE` | Small sentence edits. |
+| `/deslop:deslop FILE light` | `/deslop FILE light` | Obvious wording fixes, keeping paragraph order and structure. |
 | `/deslop:deslop FILE review` | `/deslop FILE review` | Findings and suggested rewrites. |
 | `/deslop:deslopmax FILE` | `/deslopmax FILE` | Also restructure padded paragraphs and repeated caveats. |
 
@@ -128,7 +134,8 @@ python3 evals/run_evals.py
 ```
 
 The suite covers the demo, three longer reference rewrites, two clean samples
-and 27 regression tests. [Example outputs](evals/EXAMPLES.md) include a README,
+and 34 regression tests, including the saved Opus comparison. [Example
+outputs](evals/EXAMPLES.md) include a README,
 a PR description and a LaTeX results section. To evaluate an agent, save its
 `candidate.md` or `candidate.tex` beside a case's `before` file and re-run the
 suite. Candidates must score lower, keep protected tokens and be no more

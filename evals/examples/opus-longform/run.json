@@ -1,0 +1,136 @@
+{
+  "cli_version": "2.1.267 (Claude Code)",
+  "requested_model": "opus",
+  "source_sha256": "0a026bd8c8aaa91e4d2e7b39b7ae8238212a1283ca99deadc6c76ce45f93c227",
+  "source_system_prompt": "You are a technical writer. Return only the requested Markdown article, using only the supplied facts.",
+  "edit_system_prompt": "You are a careful prose editor. Preserve the source's facts, meaning and uncertainty. Return only the revised Markdown.",
+  "budget_usd_per_call": 2.0,
+  "source_words": 817,
+  "source_excess": 6.567931456548347,
+  "levels": {
+    "light": {
+      "source_sha256": "0a026bd8c8aaa91e4d2e7b39b7ae8238212a1283ca99deadc6c76ce45f93c227",
+      "sha256": "8681359b427e09ec9018dde10e8f434966b88b4ffc218ddf634a7e4c57d8e6e8",
+      "words": 812,
+      "excess": 6.620689655172415,
+      "protected_tokens_ok": true,
+      "diff": {
+        "number": {
+          "removed": [],
+          "added": []
+        },
+        "citation": {
+          "removed": [],
+          "added": []
+        },
+        "reference": {
+          "removed": [],
+          "added": []
+        },
+        "url": {
+          "removed": [],
+          "added": []
+        },
+        "quote": {
+          "removed": [],
+          "added": []
+        },
+        "inline_code": {
+          "removed": [],
+          "added": []
+        },
+        "code_block": {
+          "removed": [],
+          "added": []
+        },
+        "math": {
+          "removed": [],
+          "added": []
+        }
+      }
+    },
+    "standard": {
+      "source_sha256": "0a026bd8c8aaa91e4d2e7b39b7ae8238212a1283ca99deadc6c76ce45f93c227",
+      "sha256": "7b3e545458ef515c844ea3d808120b585439891ac9e2360ec8b31fee2efc0a8f",
+      "words": 811,
+      "excess": 2.6991368680641186,
+      "protected_tokens_ok": true,
+      "diff": {
+        "number": {
+          "removed": [],
+          "added": []
+        },
+        "citation": {
+          "removed": [],
+          "added": []
+        },
+        "reference": {
+          "removed": [],
+          "added": []
+        },
+        "url": {
+          "removed": [],
+          "added": []
+        },
+        "quote": {
+          "removed": [],
+          "added": []
+        },
+        "inline_code": {
+          "removed": [],
+          "added": []
+        },
+        "code_block": {
+          "removed": [],
+          "added": []
+        },
+        "math": {
+          "removed": [],
+          "added": []
+        }
+      }
+    },
+    "max": {
+      "source_sha256": "0a026bd8c8aaa91e4d2e7b39b7ae8238212a1283ca99deadc6c76ce45f93c227",
+      "sha256": "94144b787300456f96ffc2db5261a1b726bbf4c6ba5e57ce359d8c4fb2d2f7ae",
+      "words": 747,
+      "excess": 1.677376171352075,
+      "protected_tokens_ok": true,
+      "diff": {
+        "number": {
+          "removed": [],
+          "added": []
+        },
+        "citation": {
+          "removed": [],
+          "added": []
+        },
+        "reference": {
+          "removed": [],
+          "added": []
+        },
+        "url": {
+          "removed": [],
+          "added": []
+        },
+        "quote": {
+          "removed": [],
+          "added": []
+        },
+        "inline_code": {
+          "removed": [],
+          "added": []
+        },
+        "code_block": {
+          "removed": [],
+          "added": []
+        },
+        "math": {
+          "removed": [],
+          "added": []
+        }
+      },
+      "review_feedback": "max-review.md"
+    }
+  }
+}

@@ -1,8 +1,18 @@
 {
   "name": "deslop",
-  "version": "0.1.0",
-  "description": "Find and fix AI-sounding prose with minimal edits that keep the author's voice and every fact.",
-  "author": { "name": "Jamie Keegan-Treloar" },
+  "version": "0.2.0",
+  "description": "Clean up AI-sounding prose with minimal edits, author baselines and checks for protected details.",
+  "author": {
+    "name": "Jamie Keegan-Treloar"
+  },
   "license": "MIT",
-  "keywords": ["writing", "editing", "prose", "documentation", "ai-slop"]
+  "keywords": [
+    "writing",
+    "editing",
+    "prose",
+    "documentation",
+    "ai-slop"
+  ],
+  "homepage": "https://github.com/Gunter-The-Third/deslopify",
+  "repository": "https://github.com/Gunter-The-Third/deslopify"
 }

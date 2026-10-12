@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="864pt" height="453.6pt" viewBox="0 0 864 453.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-12</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Deslopify</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 453.6
+L 864 453.6
+L 864 0
+L 0 0
+z
+" style="fill: #f3f1eb"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 43.2 378.3024
+L 406.08 378.3024
+Q 420.768 378.3024 420.768 370.5912
+L 420.768 126.5544
+Q 420.768 118.8432 406.08 118.8432
+L 43.2 118.8432
+Q 28.512 118.8432 28.512 126.5544
+L 28.512 370.5912
+Q 28.512 378.3024 43.2 378.3024
+z
+" clip-path="url(#p74d90c1bc9)" style="fill: #ffffff; stroke: #d8ddd4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 457.92 378.3024
+L 820.8 378.3024
+Q 835.488 378.3024 835.488 370.5912
+L 835.488 126.5544
+Q 835.488 118.8432 820.8 118.8432
+L 457.92 118.8432
+Q 443.232 118.8432 443.232 126.5544
+L 443.232 370.5912
+Q 443.232 378.3024 457.92 378.3024
+z
+" clip-path="url(#p74d90c1bc9)" style="fill: #e9f2e8; stroke: #c7dcca; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans Mono'; text-anchor: start; fill: #176346" x="38.88" y="25.4016" transform="rotate(-0 38.88 25.4016)">DESLOPIFY</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 31px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #23332f" x="38.88" y="69.4008" transform="rotate(-0 38.88 69.4008)">Clean up the prose.</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #5c6a63" x="38.88" y="95.256" transform="rotate(-0 38.88 95.256)">Keep the numbers, the meaning and the uncertainty.</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #5c6a63" x="825.12" y="24.0408" transform="rotate(-0 825.12 24.0408)">A WRITING SKILL FOR CODING AGENTS</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans Mono'; text-anchor: start; fill: #5c6a63" x="49.248" y="144.6984" transform="rotate(-0 49.248 144.6984)">BEFORE</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 12.2px; font-family: 'DejaVu Sans'; fill: #23332f" transform="translate(49.248 177.555694)">tidyjson isn't just another JSON formatter — it</text>
+    <text style="font-size: 12.2px; font-family: 'DejaVu Sans'; fill: #23332f" transform="translate(49.248 193.534548)">leverages a streaming parser to handle files of up</text>
+    <text style="font-size: 12.2px; font-family: 'DejaVu Sans'; fill: #23332f" transform="translate(49.248 209.513403)">to 2 GB. The key insight is this: it uses around 40</text>
+    <text style="font-size: 12.2px; font-family: 'DejaVu Sans'; fill: #23332f" transform="translate(49.248 225.492258)">MB of memory regardless of input size.</text>
+    <text style="font-size: 12.2px; font-family: 'DejaVu Sans'; fill: #23332f" transform="translate(49.248 241.471113)"/>
+    <text style="font-size: 12.2px; font-family: 'DejaVu Sans'; fill: #23332f" transform="translate(49.248 257.449967)">It's worth noting that tidyjson may potentially be</text>
+    <text style="font-size: 12.2px; font-family: 'DejaVu Sans'; fill: #23332f" transform="translate(49.248 273.428822)">slower than jq on very small files. Overall, this</text>
+    <text style="font-size: 12.2px; font-family: 'DejaVu Sans'; fill: #23332f" transform="translate(49.248 289.407677)">seamless approach is robust and flexible.</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans Mono'; text-anchor: start; fill: #176346" x="463.968" y="144.6984" transform="rotate(-0 463.968 144.6984)">AFTER</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 12.2px; font-family: 'DejaVu Sans'; fill: #23332f" transform="translate(463.968 177.555694)">tidyjson formats JSON with a streaming parser. It</text>
+    <text style="font-size: 12.2px; font-family: 'DejaVu Sans'; fill: #23332f" transform="translate(463.968 193.534548)">handles files of up to 2 GB and uses around 40 MB</text>
+    <text style="font-size: 12.2px; font-family: 'DejaVu Sans'; fill: #23332f" transform="translate(463.968 209.513403)">of memory regardless of input size.</text>
+    <text style="font-size: 12.2px; font-family: 'DejaVu Sans'; fill: #23332f" transform="translate(463.968 225.492258)"/>
+    <text style="font-size: 12.2px; font-family: 'DejaVu Sans'; fill: #23332f" transform="translate(463.968 241.471113)">tidyjson may be slower than jq on very small files.</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans Mono'; text-anchor: start; fill: #176346" x="38.88" y="408.24" transform="rotate(-0 38.88 408.24)">KEPT</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #23332f" x="97.632" y="408.24" transform="rotate(-0 97.632 408.24)">2 GB   /   40 MB   /   may</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #5c6a63" x="825.12" y="408.24" transform="rotate(-0 825.12 408.24)">github.com/Gunter-The-Third/deslopify</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p74d90c1bc9">
+   <rect x="0" y="0" width="864" height="453.6"/>
+  </clipPath>
+ </defs>
+</svg>

@@ -1,11 +1,14 @@
 {
   "name": "deslop",
-  "owner": { "name": "Jamie Keegan-Treloar" },
+  "owner": {
+    "name": "Jamie Keegan-Treloar"
+  },
   "plugins": [
     {
       "name": "deslop",
       "source": "./",
-      "description": "Find and fix AI-sounding prose with minimal edits that keep the author's voice and every fact."
+      "description": "Clean up AI-sounding prose with minimal edits, author baselines and checks for protected details."
     }
-  ]
+  ],
+  "description": "Deslopify writing skills for coding agents."
 }

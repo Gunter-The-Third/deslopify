@@ -33,6 +33,25 @@ claim. Those references now preserve the source claims.
 The scanner can accept clear prose containing legitimate technical terms.
 `factdiff` cannot establish meaning preservation. Both checks need a reader.
 
+## Release package check
+
+For version 0.2.0, the marketplace and plugin passed strict validation and
+installed successfully into an isolated Claude Code configuration. The CLI
+listed all three skills, including `deslopmax` and the compatibility alias.
+This checks packaging and discovery. It does not exercise a model response.
+
+Claude Code 2.1.267 estimated about 128 tokens of always-on skill metadata,
+about 600 tokens for the main command body and about 160 for the maximum-mode
+wrapper. The wrapper also reads the main workflow. Source text, rule reads,
+tool output and responses add context. These are the CLI's estimates, not
+measurements of inference usage.
+
+The [front-page demo](cases/quick-demo/before.md) has a checked
+[rewrite](cases/quick-demo/after.md). It keeps 2 GB, 40 MB and the qualifier
+“may”. Its protected tokens pass `factdiff`, and its excess drops from 102.4
+to 0.0 per 1,000 prose words. As with the other short examples, the rate is
+noisy and does not measure writing quality.
+
 ## Outputs
 
 ### readme

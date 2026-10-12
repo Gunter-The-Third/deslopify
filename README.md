@@ -14,9 +14,9 @@ The demo keeps both numbers and the uncertainty. The agent removes the padded
 framing. [Read the original](evals/cases/quick-demo/before.md) and
 [the rewrite](evals/cases/quick-demo/after.md), or run the checks below.
 
-For a longer comparison, read [real Claude Opus output at three editing
+For a longer comparison, read [real Claude Opus output at four editing
 levels](evals/examples/opus-longform/README.md). It includes the untouched
-article, light, standard and maximum edits, the prompts and the model's
+article, light, standard, maximum and Chinese edits, the prompts and the model's
 response metadata. Each pass starts from the same source.
 
 ## Install
@@ -46,8 +46,8 @@ mkdir -p ~/.claude/skills
 cp -r deslopify/skills/deslop deslopify/skills/deslopmax deslopify/skills/deslopchinese ~/.claude/skills/
 ```
 
-Keep the skill folders together because the maximum mode uses the shared
-workflow and scripts. Other coding agents can read
+Keep the skill folders together because maximum and Chinese modes use the
+shared workflow and scripts. Other coding agents can read
 [`skills/deslop/SKILL.md`](skills/deslop/SKILL.md) from the checkout.
 
 </details>
@@ -60,10 +60,13 @@ workflow and scripts. Other coding agents can read
 | `/deslop:deslop FILE light` | `/deslop FILE light` | Obvious wording fixes, keeping paragraph order and structure. |
 | `/deslop:deslop FILE review` | `/deslop FILE review` | Findings and suggested rewrites. |
 | `/deslop:deslopmax FILE` | `/deslopmax FILE` | Also restructure padded paragraphs and repeated caveats. |
+| `/deslop:deslopchinese FILE` | `/deslopchinese FILE` | Remove importance judgments, drama and irrelevant commentary. Keep factual content and the original language. |
 
-Both editing modes preserve facts and qualifications, and leave clear prose
-alone. You can also append `max` to the ordinary command. The older
-`deslopchinese` command remains an alias for the maximum pass.
+All editing modes keep facts, conditions and real uncertainty. You can also
+append `max` to the ordinary command. Chinese mode makes prose factual and
+direct. It cuts statements about what is important or interesting, dramatic
+setups and generic lessons that add no useful information. It keeps
+measurements, mechanisms, limitations and actions the reader needs.
 [Claude Code namespaces plugin commands](https://code.claude.com/docs/en/skills#choose-where-skills-load).
 
 ## Try the demo without a model
@@ -92,6 +95,8 @@ names and claim strength.
    punctuation that helps the reader.
 3. Make the smallest useful changes. In maximum mode, also remove repetition
    across paragraphs and gather repeated caveats without weakening them.
+   In Chinese mode, also cut evaluations and commentary that add no useful
+   fact or action.
 4. Re-scan, check protected tokens and read the diff for meaning.
 
 With an [author baseline](baselines/README.md), the scanner compares each
@@ -133,8 +138,8 @@ python3 skills/deslop/scripts/factdiff.py --git HEAD README.md
 python3 evals/run_evals.py
 ```
 
-The suite covers the demo, three longer reference rewrites, two clean samples
-and 34 regression tests, including the saved Opus comparison. [Example
+The suite covers the demo, four longer reference rewrites, two clean samples
+and 37 regression tests, including the saved Opus comparison. [Example
 outputs](evals/EXAMPLES.md) include a README,
 a PR description and a LaTeX results section. To evaluate an agent, save its
 `candidate.md` or `candidate.tex` beside a case's `before` file and re-run the

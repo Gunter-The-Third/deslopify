@@ -1,9 +1,9 @@
 # Example runs
 
 The [long-form Opus comparison](examples/opus-longform/README.md) contains a
-genuine, untouched Claude Opus article and independent light, standard and
-maximum passes. It includes the prompts, model metadata, token counts and
-full outputs. The smaller examples below were edited by the Codex assistant.
+genuine, untouched Claude Opus article and independent light, standard,
+maximum and Chinese passes. It includes the prompts, model metadata, token
+counts and full outputs. The smaller examples below were edited by the Codex assistant.
 
 On 12 October 2026, the current Codex assistant rewrote the three English
 fixtures using the compact skill instructions. `candidate.*` files were
@@ -42,7 +42,9 @@ The scanner can accept clear prose containing legitimate technical terms.
 
 For version 0.2.0, the marketplace and plugin passed strict validation and
 installed successfully into an isolated Claude Code configuration. The CLI
-listed all three skills, including `deslopmax` and the compatibility alias.
+listed all three skills. At that version, `deslopchinese` was a compatibility
+alias for maximum mode. Version 0.4.0 gives it separate rules for removing
+importance judgments and irrelevant commentary.
 This checks packaging and discovery. It does not exercise a model response.
 
 Claude Code 2.1.267 estimated about 128 tokens of always-on skill metadata,

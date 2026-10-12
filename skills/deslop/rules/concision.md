@@ -12,7 +12,7 @@ dive in", "In this section we", "The key takeaway is", "In summary",
 
 > It's worth noting that tidyjson may be slower than jq on small files.
 >
-> jq is faster on small files.
+> tidyjson may be slower than jq on small files.
 
 Also cut listy openers ("Two questions structure this section.", "The short
 answers are as follows.") and open with the first point.

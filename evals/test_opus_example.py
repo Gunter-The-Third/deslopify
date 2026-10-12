@@ -11,7 +11,7 @@ sys.path.insert(0, str(ROOT.parent / "skills/deslop/scripts"))
 import factdiff
 import slopscan
 
-LEVELS = ("light", "standard", "max")
+LEVELS = ("light", "standard", "max", "chinese")
 
 
 class OpusExampleTests(unittest.TestCase):
@@ -64,6 +64,27 @@ class OpusExampleTests(unittest.TestCase):
             with self.subTest(level=level):
                 edited = (EXAMPLE / (level + ".md")).read_text(encoding="utf-8")
                 self.assertEqual([line for line in edited.splitlines() if line.startswith("|")], tables)
+
+    def test_chinese_removes_observed_importance_and_drama(self):
+        source = self.source.lower()
+        edited = (EXAMPLE / "chinese.md").read_text(encoding="utf-8").lower()
+        phrases = ("the memory figure is the interesting one", "changes the operational picture",
+                   "cheap to check and expensive to assume", "a gamble", "you know the shape",
+                   "the time improvement is real but modest", "command-line tool and nothing more")
+        for phrase in phrases:
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, source)
+                self.assertNotIn(phrase, edited)
+
+    def test_chinese_keeps_rollout_preconditions(self):
+        edited = " ".join((EXAMPLE / "chinese.md").read_text(encoding="utf-8").lower().split())
+        self.assertRegex(edited, r"dry runs (?:are )?clean")
+        self.assertRegex(edited, r"duplicate handling (?:is )?(?:confirmed|verified)")
+
+    def test_chinese_does_not_soften_importance_framing(self):
+        edited = (EXAMPLE / "chinese.md").read_text(encoding="utf-8").lower()
+        self.assertNotRegex(edited, r"(?:improvement|gain|difference) (?:is|was) (?:real but )?(?:modest|meaningful|important)")
+        self.assertNotIn("the main change from the old importer is how the file is read", edited)
 
     def test_reported_metrics_match_saved_articles(self):
         original = slopscan.scan_text(self.source, ".md")

@@ -131,6 +131,49 @@
         }
       },
       "review_feedback": "max-review.md"
+    },
+    "chinese": {
+      "source_sha256": "0a026bd8c8aaa91e4d2e7b39b7ae8238212a1283ca99deadc6c76ce45f93c227",
+      "sha256": "df1f835327d327f27d0c7b0d9886451b239816bd6db523c8d6d32aa96bacd305",
+      "words": 628,
+      "excess": 1.6847133757961785,
+      "protected_tokens_ok": true,
+      "diff": {
+        "number": {
+          "removed": [],
+          "added": []
+        },
+        "citation": {
+          "removed": [],
+          "added": []
+        },
+        "reference": {
+          "removed": [],
+          "added": []
+        },
+        "url": {
+          "removed": [],
+          "added": []
+        },
+        "quote": {
+          "removed": [],
+          "added": []
+        },
+        "inline_code": {
+          "removed": [],
+          "added": []
+        },
+        "code_block": {
+          "removed": [],
+          "added": []
+        },
+        "math": {
+          "removed": [],
+          "added": []
+        }
+      },
+      "review_feedback": "chinese-review.md",
+      "cli_version": "2.1.267 (Claude Code)"
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "deslop",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Clean up AI-sounding prose with minimal edits, author baselines and checks for protected details.",
   "author": {
     "name": "Jamie Keegan-Treloar"
